@@ -2,20 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>java-learning-2024</artifactId>
+        <groupId>com.alec.learning</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.alec.learning</groupId>
-    <artifactId>java-learning-2024</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>IDEA-learning</module>
-        <module>basic-grammar</module>
-        <module>Object-Oriented</module>
-        <module>Collection-learning</module>
-        <module>Serialize-learning</module>
-        <module>Socket-Learning</module>
-    </modules>
+    <artifactId>Serialize-learning</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
