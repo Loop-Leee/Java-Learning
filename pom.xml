@@ -15,6 +15,7 @@
         <module>Collection-learning</module>
         <module>Serialize-learning</module>
         <module>Socket-Learning</module>
+        <module>Email-learning</module>
     </modules>
 
     <properties>
