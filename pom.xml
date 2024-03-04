@@ -16,6 +16,7 @@
         <module>Serialize-learning</module>
         <module>Socket-Learning</module>
         <module>Email-learning</module>
+        <module>Thread-learning</module>
     </modules>
 
     <properties>
