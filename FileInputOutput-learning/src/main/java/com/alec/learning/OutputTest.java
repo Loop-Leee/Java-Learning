@@ -9,6 +9,9 @@ public class OutputTest {
             // OutputStreamWriter 用于处理字节流，将其转换为字符流
             // OutputStream 是字符流本身
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./FileInputOutput-learning/test.txt")));
+            out.write("Hello World!\n");
+            out.close();
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./FileInputOutput-learning/test.txt", true)));
             out.write("Hello World!");
             out.close();
             System.out.println("文件创建成功!");
