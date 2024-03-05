@@ -19,6 +19,7 @@
         <module>Thread-learning</module>
         <module>FileInputOutput-learning</module>
         <module>Java8-learning</module>
+        <module>Database-learning</module>
     </modules>
 
     <properties>
