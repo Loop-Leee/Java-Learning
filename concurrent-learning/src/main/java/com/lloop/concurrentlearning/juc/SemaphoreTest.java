@@ -5,6 +5,7 @@ import java.util.concurrent.Semaphore;
 /**
  * @Author lloop
  * @Create 2025/4/24 17:39
+ * @Description 信号量, 用于控制访问的线程数量
  */
 public class SemaphoreTest {
     public static void main(String[] args) {
