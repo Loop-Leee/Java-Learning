@@ -12,8 +12,8 @@ public class MultiThreadPrint extends Thread {
     static int maxCount;
     static AtomicInteger count;
     static ReentrantLock lock = new ReentrantLock(true);
-    private int assign;
-    private Runnable action;
+    private int assign;       // 线程编号
+    private Runnable action;  // 线程要执行的任务
 
     public MultiThreadPrint(int assign, Runnable action) {
         this.assign = assign;
@@ -28,6 +28,7 @@ public class MultiThreadPrint extends Thread {
         // 只要count 小于 maxCount，就还需要打印
         while (count.get() < maxCount) {
             lock.lock();
+            // 由于有顺序打印的要求,所以需要判断是否是当前线程需要打印
             if (count.get() < maxCount && count.get() % index == assign) {
                 this.action.run();
                 count.incrementAndGet();
