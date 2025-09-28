@@ -59,7 +59,9 @@ public class ThreadStateDemo {
         // 主线程获取同步锁并进行唤醒操作
         // 等主线程退出 synchronized(lock) 之后，锁释放了，T2 才有机会去抢这个锁
         synchronized (lock) {
-            lock.notify(); // 唤醒 lock 的等待队列中的一个线程,让其进入所竞争队列
+            // 唤醒 lock 的等待队列中的一个线程,让其进入所竞争队列
+            // 注意: 不能控制具体哪个线程获取到锁，只能控制一个线程进入所竞争队列
+            lock.notify();
         }
 
         // 等待所有线程结束
