@@ -1,4 +1,4 @@
-package com.lloop.concurrentlearning.juc;
+package com.lloop.concurrentlearning.utils;
 
 import java.util.concurrent.Semaphore;
 
