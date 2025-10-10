@@ -1,5 +1,5 @@
 /**
- * ClassName: MammalInt
+ * ClassName: Dog
  * Package: PACKAGE_NAME
  * Description:
  *
@@ -7,16 +7,19 @@
  * @Create 2024/3/1 11:27
  * @Version 1.0
  */
-package animals;
+package polymorphism;
 
-public class MammalInt implements animals.Animal {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Dog implements Animal {
 
     public void eat(){
-        System.out.println("Mammal eats");
+        System.out.println("狗勾 啃啃啃");
     }
 
     public void travel(){
-        System.out.println("Mammal travels");
+        System.out.println("狗勾 走走走");
     }
 
     public int noOfLegs(){
@@ -30,11 +33,15 @@ public class MammalInt implements animals.Animal {
     3. 完成类和接口的功能
     4. 编译
     5. 打开终端，进入当前模块
-    6. 用"-cp"告知JVM类所在的位置并运行 (java -cp target/classes animals.MammalInt)
+    6. 用"-cp"告知JVM类所在的位置并运行 (java -cp target/classes animals.Dog)
     */
     public static void main(String args[]){
-        MammalInt m = new MammalInt();
-        m.eat();
-        m.travel();
+        List<Animal> animals = new ArrayList<>();
+        animals.add(new Dog());
+        animals.add(new Cat());
+        for(Animal animal : animals){
+            animal.eat();
+            animal.travel();
+        }
     }
 }
