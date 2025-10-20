@@ -11,10 +11,16 @@ import org.springframework.stereotype.Service;
 public class PayService {
 
     @Autowired
-    private PaymentContext paymentContext;
+    private PaymentStrategyFactory paymentStrategyFactory;
 
-    public void pay(double amount) {
-        paymentContext.executePayment(amount);
+    public void pay(double amount, String payType) {
+        PaymentStrategy paymentStrategy = paymentStrategyFactory.getPaymentStrategy(payType);
+
+        if (paymentStrategy == null) {
+            throw new RuntimeException("不支持的支付方式");
+        }
+
+        paymentStrategy.pay(amount);
     }
 
 }
