@@ -15,6 +15,20 @@ public class PaymentStrategyFactory implements ApplicationContextAware {
     private static Map<String, PaymentStrategy> strategyMap;
 
     /**
+     * 通过Spring容器初始化策略对象
+     * @param applicationContext Spring容器
+     * @throws BeansException
+     */
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        strategyMap = new HashMap<>();
+        PaymentProperties paymentProperties = applicationContext.getBean(PaymentProperties.class);
+        paymentProperties.getTypes().forEach((name, type) ->
+                strategyMap.put(name, applicationContext.getBean(type, PaymentStrategy.class))
+        );
+    }
+
+    /**
      * 获取支付策略
      * @param payType 支付方式
      * @return 对应的支付策略
@@ -31,12 +45,4 @@ public class PaymentStrategyFactory implements ApplicationContextAware {
         return strategyMap;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        strategyMap = new HashMap<>();
-        PaymentProperties paymentProperties = applicationContext.getBean(PaymentProperties.class);
-        paymentProperties.getTypes().forEach((name, type) ->
-            strategyMap.put(name, applicationContext.getBean(type, PaymentStrategy.class))
-        );
-    }
 }

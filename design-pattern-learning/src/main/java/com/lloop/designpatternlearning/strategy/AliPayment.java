@@ -2,6 +2,9 @@ package com.lloop.designpatternlearning.strategy;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 支付宝支付, 支付策略中的一种实现
+ */
 @Component
 public class AliPayment implements PaymentStrategy {
 
