@@ -1,6 +1,5 @@
 package com.lloop.designpatternlearning.strategy;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,11 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PayService {
 
-    @Autowired
-    private PaymentStrategyFactory paymentStrategyFactory;
-
     public void pay(double amount, String payType) {
-        PaymentStrategy paymentStrategy = paymentStrategyFactory.getPaymentStrategy(payType);
+        PaymentStrategy paymentStrategy = PaymentStrategyFactory.getPaymentStrategy(payType);
 
         if (paymentStrategy == null) {
             throw new RuntimeException("不支持的支付方式");

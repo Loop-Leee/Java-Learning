@@ -1,30 +1,25 @@
 package com.lloop.designpatternlearning.strategy;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lloop.designpatternlearning.strategy.config.PaymentProperties;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class PaymentStrategyFactory {
+public class PaymentStrategyFactory implements ApplicationContextAware {
 
-    private final Map<String, PaymentStrategy> strategyMap;
-
-    @Autowired
-    public PaymentStrategyFactory(Map<String, PaymentStrategy> strategyMap) {
-        this.strategyMap = strategyMap;
-        // 打印strategyMap的内容，用于调试
-        strategyMap.forEach((key, value) ->
-            System.out.println("正在注册 " + key + " Bean, 对应的类为: " + value.getClass().getSimpleName())
-        );
-    }
+    private static Map<String, PaymentStrategy> strategyMap;
 
     /**
      * 获取支付策略
      * @param payType 支付方式
      * @return 对应的支付策略
      */
-    public PaymentStrategy getPaymentStrategy(String payType) {
+    public static PaymentStrategy getPaymentStrategy(String payType) {
         return strategyMap.get(payType);
     }
     
@@ -34,5 +29,14 @@ public class PaymentStrategyFactory {
      */
     public Map<String, PaymentStrategy> getStrategyMap() {
         return strategyMap;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        strategyMap = new HashMap<>();
+        PaymentProperties paymentProperties = applicationContext.getBean(PaymentProperties.class);
+        paymentProperties.getTypes().forEach((name, type) ->
+            strategyMap.put(name, applicationContext.getBean(type, PaymentStrategy.class))
+        );
     }
 }

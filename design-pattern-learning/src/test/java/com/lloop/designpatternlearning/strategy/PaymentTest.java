@@ -16,6 +16,6 @@ public class PaymentTest {
 
     @Test
     public void testPayment() {
-        payService.pay(100, "weChatPayment");
+        payService.pay(100, "wechat");
     }
 }
