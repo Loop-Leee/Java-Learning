@@ -1,6 +1,6 @@
-package com.lloop.springlearning.controller;
+package com.lloop.springbasic.controller;
 
-import com.lloop.springlearning.service.AService;
+import com.lloop.springbasic.service.AService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
