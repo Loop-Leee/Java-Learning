@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-center
+
+server:
+  port: 8080
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+  # 不配置 file, 避免写磁盘, 容器的 stdout/stderr 会被 Docker 自动捕获和持久化，无需手动写文件。
+  file:
+    name:
+  level:
+    root: INFO
+    com.lloop.usercenter: DEBUG
