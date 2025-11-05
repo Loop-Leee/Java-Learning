@@ -29,7 +29,8 @@ public class UserController {
     /**
      * 查询用户
      * curl "http://localhost:8080/api/v1/users/1"
-     * curl "http://localhost:8081/api/v1/users/1"
+     * curl "http://localhost:8080/api/v1/users/1"
+     * curl "http://localhost:8080/api/v1/users/1?simulateError=true"
      * @param id
      * @param simulateError
      * @return
