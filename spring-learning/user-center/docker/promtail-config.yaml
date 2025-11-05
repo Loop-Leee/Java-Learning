@@ -1,0 +1,47 @@
+# ========================
+# Promtail 服务器配置部分
+# ========================
+server:
+  # HTTP 服务监听端口，用于提供健康检查、指标查询等服务
+  # 可以通过 http://localhost:9080/metrics 查看监控指标
+  http_listen_port: 9080
+
+  # gRPC 服务监听端口，设置为 0 表示禁用 gRPC 服务
+  # 因为 Promtail 通常不需要 gRPC 通信，所以可以安全禁用
+  grpc_listen_port: 0           # grpc 监听端口
+
+
+# ========================
+# 文件读取位置记录配置
+# ========================
+positions:
+  # 记录日志文件读取位置的本地文件路径
+  # Promtail 会在这里记录每个日志文件已经读取到哪里，避免重启后重复读取
+  # 类似于书签功能，确保不会丢失日志数据
+  filename: /tmp/positions.yaml  # 用于记录读取到哪里
+
+
+# ========================
+# Loki 服务连接配置
+# ========================
+clients:
+  - url: http://loki:3100/loki/api/v1/push  # 指定 Loki 服务地址
+
+
+# ========================
+# 日志抓取任务配置
+# ========================
+scrape_configs:
+  # 定义第一个日志抓取任务，任务名称为 "docker", 用于区分不同的日志收集任务
+  - job_name: docker
+    # 静态配置：直接指定要监控的目标和标签
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: user-service   # 这个标签会附加到所有收集到的日志上，用于在 Loki 中分类和查询
+
+          # 最重要的配置：指定要监控的日志文件路径
+          # /var/lib/docker/containers/ 是 Docker 默认存储容器数据的目录
+          # /var/lib/docker/containers/*/*.log 表示监控所有Docker容器的日志文件
+          __path__: /var/lib/docker/containers/*/*.log
