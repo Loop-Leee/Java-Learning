@@ -1,4 +1,4 @@
-package com.lloop.springbasic.service;
+package com.lloop.springbasic.circulardependency.service;
 
 /**
  * @Author lloop

@@ -1,6 +1,6 @@
-package com.lloop.springbasic.service;
+package com.lloop.springbasic.aop.service;
 
-import com.lloop.springbasic.annotation.LogExecution;
+import com.lloop.springbasic.aop.annotation.LogExecution;
 
 /**
  * @Author lloop

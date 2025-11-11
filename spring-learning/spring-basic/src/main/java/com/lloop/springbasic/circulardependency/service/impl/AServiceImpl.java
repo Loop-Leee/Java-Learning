@@ -1,7 +1,7 @@
-package com.lloop.springbasic.service.impl;
+package com.lloop.springbasic.circulardependency.service.impl;
 
-import com.lloop.springbasic.service.BService;
-import com.lloop.springbasic.service.AService;
+import com.lloop.springbasic.circulardependency.service.BService;
+import com.lloop.springbasic.circulardependency.service.AService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.lloop.springbasic.service.impl;
+package com.lloop.springbasic.aop.service.impl;
 
-import com.lloop.springbasic.annotation.LogExecution;
-import com.lloop.springbasic.service.AspectTestService;
+import com.lloop.springbasic.aop.annotation.LogExecution;
+import com.lloop.springbasic.aop.service.AspectTestService;
 import org.springframework.stereotype.Service;
 
 /**

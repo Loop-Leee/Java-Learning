@@ -1,6 +1,6 @@
-package com.lloop.springbasic.controller;
+package com.lloop.springbasic.aop.controller;
 
-import com.lloop.springbasic.service.AspectTestService;
+import com.lloop.springbasic.aop.service.AspectTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

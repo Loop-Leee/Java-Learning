@@ -1,6 +1,6 @@
-package com.lloop.springbasic.aspect;
+package com.lloop.springbasic.aop.aspect;
 
-import com.lloop.springbasic.annotation.LogExecution;
+import com.lloop.springbasic.aop.annotation.LogExecution;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -42,7 +42,7 @@ public class LoggingAspect {
      * - @annotation(com.lloop.springbasic.annotation.LogExecution): 
      *   匹配所有标注了 @LogExecution 注解的方法
      */
-    @Pointcut("@annotation(com.lloop.springbasic.annotation.LogExecution)")
+    @Pointcut("@annotation(com.lloop.springbasic.aop.annotation.LogExecution)")
     public void logExecutionPointcut() {
         // 切点方法体为空，仅作为切点定义的标识
     }

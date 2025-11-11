@@ -1,6 +1,6 @@
-package com.lloop.springbasic.controller;
+package com.lloop.springbasic.circulardependency.controller;
 
-import com.lloop.springbasic.service.AService;
+import com.lloop.springbasic.circulardependency.service.AService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

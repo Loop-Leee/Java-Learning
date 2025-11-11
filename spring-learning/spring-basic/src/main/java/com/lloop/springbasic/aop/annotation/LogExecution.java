@@ -1,4 +1,4 @@
-package com.lloop.springbasic.annotation;
+package com.lloop.springbasic.aop.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
