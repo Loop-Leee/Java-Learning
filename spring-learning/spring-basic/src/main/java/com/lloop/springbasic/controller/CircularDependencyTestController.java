@@ -16,6 +16,11 @@ public class CircularDependencyTestController {
     @Autowired
     private AService aService;
 
+    /**
+     * 测试循环依赖注入是否成功
+     * 测试路径: curl http://localhost:8080/test-circular-dependency
+     * @return
+     */
     @GetMapping("/test-circular-dependency")
     public String testCircularDependency() {
         System.out.println("开始测试循环依赖...");
