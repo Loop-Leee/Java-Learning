@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lloop.mybatisplus.mapper.OrderMapper">
+
+    <!-- 基础结果映射 - 演示自动映射 -->
+    <!-- MyBatis-Plus 默认开启了驼峰命名映射, 所以这个 Map 实际上并不必要, 但为了代码可读性也可以保留 -->
+    <resultMap id="BaseResultMap" type="com.lloop.mybatisplus.entity.Order">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="amount" property="amount"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 自定义结果映射 - 演示自定义映射（ResultMap） -->
+    <!-- 联表查询结果必须要定义一个 ResultMap, 用于将订单表和用户表的数据映射到 OrderDetailVO 对象 -->
+    <resultMap id="OrderDetailResultMap" type="com.lloop.mybatisplus.entity.OrderDetailVO">
+        <!-- 订单信息映射 -->
+        <id column="order_id" property="orderId"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="amount" property="amount"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <!-- 用户信息映射 -->
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <!-- 根据用户ID查询订单列表 - 演示 XML 实现的 SQL -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT id, user_id, order_no, amount, status, create_time, update_time
+        FROM `order`
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 动态查询订单 - 演示动态 SQL（XML 方式） -->
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT id, user_id, order_no, amount, status, create_time, update_time
+        FROM `order`
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="minAmount != null">
+                AND amount &gt;= #{minAmount}
+            </if>
+            <if test="maxAmount != null">
+                AND amount &lt;= #{maxAmount}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询订单详情（包含用户信息）- 演示自定义映射（ResultMap） -->
+    <select id="selectOrderDetail" resultMap="OrderDetailResultMap">
+        SELECT
+            o.id AS order_id,
+            o.order_no,
+            o.amount,
+            o.status,
+            o.create_time,
+            o.user_id,
+            u.username,
+            u.email
+        FROM `order` o
+        LEFT JOIN user u ON o.user_id = u.id
+        WHERE o.id = #{orderId} AND u.deleted = 0
+    </select>
+
+    <!-- 批量更新订单状态 - 演示动态 SQL 中的 foreach -->
+    <update id="updateBatchStatus">
+        UPDATE `order`
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </update>
+
+    <!-- 复杂动态查询示例 - 演示 where、choose、when、otherwise -->
+    <select id="selectComplex" resultMap="BaseResultMap">
+        SELECT id, user_id, order_no, amount, status, create_time, update_time
+        FROM `order`
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <choose>
+                <when test="status != null">
+                    AND status = #{status}
+                </when>
+                <otherwise>
+                    AND status != 2
+                </otherwise>
+            </choose>
+            <if test="minAmount != null and maxAmount != null">
+                AND amount BETWEEN #{minAmount} AND #{maxAmount}
+            </if>
+            <if test="orderNos != null and orderNos.size() > 0">
+                AND order_no IN
+                <foreach collection="orderNos" item="orderNo" open="(" separator="," close=")">
+                    #{orderNo}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lloop.mybatisplus.mapper.UserMapper">
+
+    <!-- 结果映射 - 演示自动映射（字段名与属性名一致时自动映射） -->
+    <resultMap id="BaseResultMap" type="com.lloop.mybatisplus.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="age" property="age"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <!-- 批量插入用户 - 演示 XML 实现的 SQL -->
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO user (username, email, age, create_time, update_time, deleted)
+        VALUES
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username}, #{user.email}, #{user.age}, #{user.createTime}, #{user.updateTime}, #{user.deleted})
+        </foreach>
+    </insert>
+
+    <!-- 根据条件动态查询用户 - 演示动态 SQL（XML 方式） -->
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT * FROM user WHERE deleted = 0
+        <if test="username != null and username != ''">
+            AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
+        <if test="email != null and email != ''">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        <if test="minAge != null">
+            AND age &gt;= #{minAge}
+        </if>
+        <if test="maxAge != null">
+            AND age &lt;= #{maxAge}
+        </if>
+        <choose>
+            <when test="orderBy != null and orderBy == 'age'">
+                ORDER BY age ASC
+            </when>
+            <when test="orderBy != null and orderBy == 'createTime'">
+                ORDER BY create_time DESC
+            </when>
+            <otherwise>
+                ORDER BY id DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 根据 ID 列表查询用户 - 演示动态 SQL 中的 foreach -->
+    <select id="selectByIds" resultMap="BaseResultMap">
+        SELECT * FROM user WHERE deleted = 0
+        <if test="ids != null and ids.size() > 0">
+            AND id IN
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 动态更新用户信息 - 演示动态 SQL 中的 set -->
+    <update id="updateSelective">
+        UPDATE user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        WHERE id = #{id} AND deleted = 0
+    </update>
+
+</mapper>
+

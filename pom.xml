@@ -16,6 +16,7 @@
         <module>Thread-learning</module>
         <module>Java8-learning</module>
         <module>Database-learning</module>
+        <module>mybatisplus-learning</module>
     </modules>
 
     <properties>
