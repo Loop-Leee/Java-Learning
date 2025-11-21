@@ -1,7 +1,7 @@
-import java.io.Serializable;
+package serialize;
 
 /**
- * ClassName: Employee
+ * ClassName: serialize.Employee
  * Package: PACKAGE_NAME
  * Description:
  *

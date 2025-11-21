@@ -9,15 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>IDEA-learning</module>
         <module>basic-grammar</module>
         <module>Object-Oriented</module>
         <module>Collection-learning</module>
-        <module>Serialize-learning</module>
         <module>Socket-Learning</module>
-        <module>Email-learning</module>
         <module>Thread-learning</module>
-        <module>FileInputOutput-learning</module>
         <module>Java8-learning</module>
         <module>Database-learning</module>
     </modules>

@@ -1,9 +1,10 @@
-import java.io.FileNotFoundException;
+package serialize;
+
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * ClassName: SerializableTest
+ * ClassName: serialize.SerializableTest
  * Package: PACKAGE_NAME
  * Description:
  *
@@ -15,10 +16,10 @@ public class SerializableTest {
 
     public static void main(String[] args) {
         Employee e = new Employee();
-        e.name = "Reyan Ali";
-        e.address = "Phokka Kuan, Ambehta Peer";
+        e.name = "Loop Lee";
+        e.address = "China HN";
         e.SSN = 11122333;
-        e.number = 101;
+        e.number = 12345678;
 
         try {
             FileOutputStream fos = new FileOutputStream("employee.ser");
